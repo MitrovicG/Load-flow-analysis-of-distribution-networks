@@ -788,7 +788,7 @@ void NetworkTopology:: LoadFlowAnalysis(NetworkTopology &net, Branch* branchesAr
 		net.nodes[i].SetVoltage(1.0f);
 	}
 
-	//Creaation of sensitivity matrix
+	//Creation of sensitivity matrix
 	complex<float> **SM = net.CalculateSensitivityMatrix(net);
 
 	Branch *branchesLBP = net.FindBranchesWithLoops(net);
@@ -810,7 +810,6 @@ void NetworkTopology:: LoadFlowAnalysis(NetworkTopology &net, Branch* branchesAr
 		cout << endl;
 
 
-	//Kreiranje vektora korekcionih struja
 	complex<float> *dJ = new complex<float> [numberOfBP];
 
 		for(int i=0; i < numberOfBP; i++)
@@ -818,8 +817,8 @@ void NetworkTopology:: LoadFlowAnalysis(NetworkTopology &net, Branch* branchesAr
 				dJ[i] = 0;
 		}
 
-	//Kreiranje vektora proracunatih korekcionih struja koje ce se u tokovima snaga koristiti za proracun injektiranih struja u cvorovima
-		complex<float> *corrections = new complex<float> [net.numberOfNodes];
+	complex<float> *corrections = new complex<float> [net.numberOfNodes];
+		
 		for(int i = 0; i < net.numberOfNodes; i++)
 		{
 			corrections[i] = 0.0f;
@@ -849,7 +848,9 @@ void NetworkTopology:: LoadFlowAnalysis(NetworkTopology &net, Branch* branchesAr
 		
 		dV = net.CalculateLoadFlows(net,branchesArray, dV, corrections,counter);
 	//}
-		
+		//for weakly-meshed network
+		if(numberOfBP > 0)
+		{
 			cout << "-------------------------------- Corrections -------------------------------- " << endl;
 			cout << endl;
 
@@ -891,7 +892,7 @@ void NetworkTopology:: LoadFlowAnalysis(NetworkTopology &net, Branch* branchesAr
 			cout << endl;
 			cout << "----------------------------------------------------------------------------------" << endl;
 			cout << endl;
-
+		}
 	} while(abs(dV) > 0.00001 );
 }
 
