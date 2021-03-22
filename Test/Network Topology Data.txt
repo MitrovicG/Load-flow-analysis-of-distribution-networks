@@ -1,0 +1,4 @@
+Number of nodes:	11
+Number of branches:	13
+Supply Node index:	0
+
