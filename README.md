@@ -7,4 +7,4 @@ This method is based on the backward/forward sweep algorithm.
 * Next step is construction of sensitivity matrix:
   *  Diagonal elements are self impedances of the breakpoints and the off-diagonal elements are mutual impedances of two breakpoints.
 * The iterative procedure starts with an initial guess of the current injection.
-* After iterative procedure, voltages at the two sides of the breakpoints should be equal.
+* After iterative procedure, voltages at the two sides of the breakpoints should be approximately equal.
